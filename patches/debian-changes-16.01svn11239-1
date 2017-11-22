@@ -1,0 +1,105 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ codeblocks (16.01svn11239-1) UNRELEASED; urgency=medium
+ .
+   * New svn revision
+Author: Jens Lody <jens@vmd22635.contaboserver.net>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: https://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- codeblocks-16.01svn11239.orig/ChangeLog
++++ codeblocks-16.01svn11239/ChangeLog
+@@ -3018,7 +3018,7 @@ svn10826:  * compiler: Expand backtick
+ 
+ 2016-04-11 06:50  killerbot
+ 
+-svn10825:  - CCtest : build fix : -std=gnu++11
++svn10825:  CCtest : build fix : -std=gnu++11
+ 
+ 2016-04-09 19:18  fuscated
+ 
+@@ -4064,7 +4064,7 @@ svn10612:  - Remove wxsSmithPlot from
+ 
+ 2015-12-07 05:40  jenslody
+ 
+-svn10611:  * Linux: fix for "make dist"
++svn10611:  Linux: fix for "make dist"
+ 
+ 2015-12-07 05:32  jenslody
+ 
+@@ -4392,7 +4392,7 @@ svn10551:  * cbAuiNotebook: only save
+ 
+ 2015-10-31 16:34  jenslody
+ 
+-svn10550:  * cbProject: do not try to load non existing files;
++svn10550:  * cpProject: do not try to load non existing files;
+ 	  should fix issue with automagically split editors, if some
+ 	  source-files do not exist, but have fileOpen set to true.
+ 	  See:
+@@ -4420,7 +4420,7 @@ svn10546:  * Linux (Mac ?): fix 32bit
+ 
+ 2015-10-23 23:03  jenslody
+ 
+-svn10545:  * Windows: fix incorrect base when converting string
++svn10545:  * WIndows: fix incorrect base when converting string
+ 	  to address
+ 
+ 2015-10-23 12:53  mortenmacfly
+--- codeblocks-16.01svn11239.orig/bootstrap
++++ codeblocks-16.01svn11239/bootstrap
+@@ -6,14 +6,14 @@
+ #  - automake 1.7+, 1.9+ for make dist
+ #  - libtool 1.4+
+ 
+-# Touch revision.m4
+-if [ -f ./update_revision.sh ]; then
+-	./update_revision.sh;
+-elif [ ! -f ./revision.m4 ]; then
+-	echo "m4_define([SVN_REV], 0)" > ./revision.m4;
+-	echo "m4_define([SVN_REVISION], trunk-r0)" >> ./revision.m4;
+-	echo "m4_define([SVN_DATE], )" >> ./revision.m4;
+-fi
++## Touch revision.m4
++#if [ -f ./update_revision.sh ]; then
++#	./update_revision.sh;
++#elif [ ! -f ./revision.m4 ]; then
++#	echo "m4_define([SVN_REV], 0)" > ./revision.m4;
++#	echo "m4_define([SVN_REVISION], trunk-r0)" >> ./revision.m4;
++#	echo "m4_define([SVN_DATE], )" >> ./revision.m4;
++#fi
+ 
+ # create m4 directory or we break older systems like RedHat/CentOS 5
+ mkdir -p m4
+--- codeblocks-16.01svn11239.orig/update_revision.sh
++++ codeblocks-16.01svn11239/update_revision.sh
+@@ -56,12 +56,12 @@ if [ "x$REV" != "x$OLD_REV" -o ! -r $REV
+ 		if [ -x "$DCH" ]; then
+ 			AKT_REV=`sed -e 's/.*svn\([0-9]*\).*/\1/' -e 'q' < debian/changelog`
+ 			if [ $REV -gt $AKT_REV ]; then
+-				dch -v 16.01svn$REV "New svn revision"
++				dch -v 16.01svn$REV-1 "New svn revision"
+ 			fi
+ 		fi
+ 	else
+ 		mv debian/changelog debian/changelog.tmp
+-		sed "1 s/(16.01svn[^-)]*/(16.01svn$REV/" < debian/changelog.tmp > debian/changelog
++		sed "1 s/(16.01svn[^)]*/(16.01svn$REV-1/" < debian/changelog.tmp > debian/changelog
+ 		rm debian/changelog.tmp
+ 	fi
+ fi
